@@ -143,14 +143,42 @@ document.addEventListener('DOMContentLoaded', () => {
     return h * 60 + m;
   };
 
-  const formatTime = (hhmm) => {
-    const [h, m] = hhmm.split(':').map(Number);
-    const suffix = h >= 12 ? 'PM' : 'AM';
-    const hour12 = h % 12 === 0 ? 12 : h % 12;
-    return `${hour12}:${String(m).padStart(2, '0')} ${suffix}`;
+  const getTimeZoneOffsetMs = (timeZone, date = new Date()) => {
+    const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+    const tzDate = new Date(date.toLocaleString('en-US', { timeZone }));
+    return tzDate.getTime() - utcDate.getTime();
   };
 
-  const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const convertScheduleTimeToLocalDate = (hhmm, dayOffset, timeZone) => {
+    const [h, m] = hhmm.split(':').map(Number);
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    }).formatToParts(now);
+    const get = (t) => Number(parts.find((p) => p.type === t).value);
+    const y = get('year');
+    const mo = get('month') - 1;
+    const d = get('day') + dayOffset;
+    const tzOffset = getTimeZoneOffsetMs(timeZone, now);
+    const targetUtcMs = Date.UTC(y, mo, d, h, m) - tzOffset;
+    return new Date(targetUtcMs);
+  };
+
+  const formatLocalDate = (date) => {
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  };
+
+  const formatLocalDayLabel = (date) => {
+    const now = new Date();
+    if (date.toDateString() === now.toDateString()) return 'today';
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    if (date.toDateString() === tomorrow.toDateString()) return 'tomorrow';
+    return date.toLocaleDateString([], { weekday: 'long' });
+  };
 
   // Current weekday + minutes-since-midnight in the schedule's timezone
   const getNowInZone = (timeZone) => {
@@ -197,10 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Currently inside a working window?
         if (today && now.minutes >= toMinutes(today.start) && now.minutes < toMinutes(today.end)) {
+          const endLocalDate = convertScheduleTimeToLocalDate(today.end, 0, timezone);
           setStatus(
             'Status: Available',
             'emerald',
-            `<i class="fa-solid fa-circle-check mr-1"></i> I'm available right now (until ${formatTime(today.end)} Cairo time).`
+            `<i class="fa-solid fa-circle-check mr-1"></i> I'm available right now (until ${formatLocalDate(endLocalDate)} your local time).`
           );
           return;
         }
@@ -213,8 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!slot) continue;
           const startsLater = offset > 0 || now.minutes < toMinutes(slot.start);
           if (startsLater) {
-            const when = offset === 0 ? 'today' : offset === 1 ? 'tomorrow' : capitalize(dayName);
-            nextText = `Next available: ${when} ${formatTime(slot.start)} - ${formatTime(slot.end)} (Cairo time).`;
+            const startLocalDate = convertScheduleTimeToLocalDate(slot.start, offset, timezone);
+            const endLocalDate = convertScheduleTimeToLocalDate(slot.end, offset, timezone);
+            const dayLabel = formatLocalDayLabel(startLocalDate);
+            nextText = `Next available: ${dayLabel} ${formatLocalDate(startLocalDate)} – ${formatLocalDate(endLocalDate)} (your local time).`;
             break;
           }
         }
