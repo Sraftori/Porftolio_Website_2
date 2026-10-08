@@ -1,101 +1,329 @@
+// Paste your Formspree endpoint here (looks like https://formspree.io/f/abcdwxyz)
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjorvky';
+
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Input Event (Name)
+  // ==========================================
+  // 1. Input Event (Client Name)
+  // ==========================================
   const searchInput = document.getElementById('search');
   const inputMsg = document.querySelector('.inputMsg');
 
-  searchInput.addEventListener('input', (e) => {
-    const name = e.target.value.trim();
-    inputMsg.textContent = name ? name : '...';
-  });
+  if (searchInput && inputMsg) {
+    searchInput.addEventListener('input', (e) => {
+      const name = e.target.value.trim();
+      inputMsg.textContent = name ? name : '...';
+    });
+  }
 
-  // 2. Change Event (Project Type)
+  // ==========================================
+  // 2. Project Selection & Custom Request Toggle
+  // ==========================================
   const countrySelect = document.getElementById('countrySelect');
   const changeMsg = document.querySelector('.changeMsg');
+  const customRequestBtn = document.getElementById('customRequestBtn');
+  const customRequestDiv = document.getElementById('customRequestDiv');
+  const customRequestInput = document.getElementById('customRequestInput');
 
-  countrySelect.addEventListener('change', (e) => {
-    const selectedProject = e.target.value;
-    if (selectedProject !== 'None') {
-      changeMsg.textContent = selectedProject;
-    } else {
-      changeMsg.textContent = 'your project';
-    }
-  });
+  function closeCustomRequest() {
+    if (!customRequestDiv || !customRequestBtn) return;
+    customRequestDiv.classList.add('hidden');
+    customRequestDiv.style.display = 'none';
+    customRequestBtn.innerHTML = '<i class="fa-solid fa-plus mr-1"></i> Custom Request';
+    customRequestBtn.classList.remove('bg-sky-400/20', 'text-sky-400', 'border-sky-400');
+    if (customRequestInput) customRequestInput.value = '';
+  }
 
-  // 3. Keyup & createElement Event (Wishlist)
+  if (countrySelect && changeMsg) {
+    countrySelect.addEventListener('change', (e) => {
+      const selectedProject = e.target.value;
+      // Picking a dropdown option cancels any open custom request
+      closeCustomRequest();
+      if (selectedProject !== 'None') {
+        changeMsg.textContent = selectedProject;
+      } else {
+        changeMsg.textContent = 'your project';
+      }
+    });
+  }
+
+  // Custom Request Button Handler
+  if (customRequestBtn && customRequestDiv) {
+    customRequestBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isHidden = customRequestDiv.classList.contains('hidden') || customRequestDiv.style.display === 'none';
+
+      if (isHidden) {
+        customRequestDiv.classList.remove('hidden');
+        customRequestDiv.style.display = 'block';
+        customRequestBtn.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> Cancel Custom';
+        customRequestBtn.classList.add('bg-sky-400/20', 'text-sky-400', 'border-sky-400');
+        if (countrySelect) countrySelect.value = 'None';
+        if (changeMsg) changeMsg.textContent = 'your custom project';
+        if (customRequestInput) customRequestInput.focus();
+      } else {
+        closeCustomRequest();
+        if (changeMsg) changeMsg.textContent = 'your project';
+      }
+    });
+  }
+
+  // ==========================================
+  // 3. Feature Wishlist (Enter & Keyup)
+  // ==========================================
   const keyInput = document.getElementById('keyInput');
   const keyMsg = document.querySelector('.keyMsg');
   const wishlist = document.querySelector('.wishlist');
 
-  keyInput.addEventListener('keyup', (e) => {
-    keyMsg.textContent = `Typing: ${e.target.value}`;
-    
-    // Check if Enter key was pressed and input is not empty
-    if (e.key === 'Enter' && e.target.value.trim() !== '') {
-      const newItem = document.createElement('li');
-      newItem.textContent = e.target.value.trim();
-      
-      // Add Tailwind classes to the newly created list item
-      newItem.className = 'bg-slate-800 py-2 px-4 rounded border border-slate-700 text-sm cursor-pointer hover:bg-red-500/20 hover:border-red-500 transition-colors';
-      newItem.title = 'Click to remove';
-      
-      // Allow removal of items by clicking them
-      newItem.addEventListener('click', () => {
-        newItem.remove();
-      });
+  if (keyInput && keyMsg && wishlist) {
+    keyInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
 
-      wishlist.appendChild(newItem);
-      e.target.value = ''; // Clear input
-      keyMsg.textContent = 'Feature added!';
-      
-      // Reset message after 2 seconds
-      setTimeout(() => {
-        if(keyInput.value === '') keyMsg.textContent = '';
-      }, 2000);
-    }
-  });
+    keyInput.addEventListener('keyup', (e) => {
+      keyMsg.textContent = e.target.value !== '' ? `Typing: ${e.target.value}` : '';
 
-  // 4. Click Event (Availability)
+      if (e.key === 'Enter' && e.target.value.trim() !== '') {
+        const newItem = document.createElement('li');
+        newItem.textContent = e.target.value.trim();
+        newItem.className =
+          'bg-slate-800 py-2 px-4 rounded border border-slate-700 text-sm cursor-pointer hover:bg-red-500/20 hover:border-red-500 hover:text-red-400 transition-colors shadow-sm';
+        newItem.title = 'Click to remove';
+
+        newItem.addEventListener('click', () => {
+          newItem.remove();
+        });
+
+        wishlist.appendChild(newItem);
+        e.target.value = '';
+        keyMsg.textContent = 'Feature added! Click a tag to remove it.';
+
+        setTimeout(() => {
+          if (keyInput.value === '') keyMsg.textContent = '';
+        }, 2500);
+      }
+    });
+  }
+
+  // ==========================================
+  // 4. Check Availability
+  // ==========================================
   const clickEventBtn = document.getElementById('clickEvent');
   const clickMsg = document.querySelector('.clickMsg');
 
-  clickEventBtn.addEventListener('click', () => {
-    clickEventBtn.textContent = 'Checking...';
-    clickEventBtn.classList.add('opacity-50', 'cursor-not-allowed');
-    
-    // Simulate an API check delay
-    setTimeout(() => {
-      clickMsg.textContent = 'I am currently accepting new projects! Let\'s chat.';
-      clickEventBtn.textContent = 'Available';
-      clickEventBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-      clickEventBtn.classList.replace('text-sky-400', 'text-emerald-400');
-      clickEventBtn.classList.replace('border-sky-400', 'border-emerald-400');
-    }, 1200);
-  });
+  const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const COLOR_CLASSES = [
+    'text-sky-400', 'border-sky-400',
+    'text-emerald-400', 'border-emerald-400',
+    'text-amber-400', 'border-amber-400',
+    'text-red-400', 'border-red-400',
+  ];
 
-  // 5. Submit Event (Form Submission)
+  const toMinutes = (hhmm) => {
+    const [h, m] = hhmm.split(':').map(Number);
+    return h * 60 + m;
+  };
+
+  const formatTime = (hhmm) => {
+    const [h, m] = hhmm.split(':').map(Number);
+    const suffix = h >= 12 ? 'PM' : 'AM';
+    const hour12 = h % 12 === 0 ? 12 : h % 12;
+    return `${hour12}:${String(m).padStart(2, '0')} ${suffix}`;
+  };
+
+  const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+  // Current weekday + minutes-since-midnight in the schedule's timezone
+  const getNowInZone = (timeZone) => {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      weekday: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).formatToParts(new Date());
+    const get = (type) => parts.find((p) => p.type === type).value;
+    return {
+      dayIndex: DAYS.indexOf(get('weekday').toLowerCase()),
+      minutes: (Number(get('hour')) % 24) * 60 + Number(get('minute')),
+    };
+  };
+
+  const setStatus = (btnText, color, messageHtml) => {
+    clickEventBtn.textContent = btnText;
+    clickEventBtn.disabled = false;
+    clickEventBtn.classList.remove('opacity-50', 'cursor-not-allowed', ...COLOR_CLASSES);
+    clickEventBtn.classList.add(`text-${color}-400`, `border-${color}-400`);
+    clickMsg.className = `clickMsg text-sm text-${color}-400 font-medium`;
+    clickMsg.innerHTML = messageHtml;
+  };
+
+  if (clickEventBtn && clickMsg) {
+    clickEventBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      clickEventBtn.textContent = 'Checking...';
+      clickEventBtn.disabled = true;
+      clickEventBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      clickMsg.textContent = '';
+
+      try {
+        const response = await fetch('availability.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Could not load availability.json');
+        const { timezone, schedule } = await response.json();
+
+        const now = getNowInZone(timezone);
+        const today = schedule[DAYS[now.dayIndex]];
+
+        // Currently inside a working window?
+        if (today && now.minutes >= toMinutes(today.start) && now.minutes < toMinutes(today.end)) {
+          setStatus(
+            'Status: Available',
+            'emerald',
+            `<i class="fa-solid fa-circle-check mr-1"></i> I'm available right now (until ${formatTime(today.end)} Cairo time).`
+          );
+          return;
+        }
+
+        // Otherwise find the next upcoming window
+        let nextText = '';
+        for (let offset = 0; offset <= 7; offset++) {
+          const dayName = DAYS[(now.dayIndex + offset) % 7];
+          const slot = schedule[dayName];
+          if (!slot) continue;
+          const startsLater = offset > 0 || now.minutes < toMinutes(slot.start);
+          if (startsLater) {
+            const when = offset === 0 ? 'today' : offset === 1 ? 'tomorrow' : capitalize(dayName);
+            nextText = `Next available: ${when} ${formatTime(slot.start)} - ${formatTime(slot.end)} (Cairo time).`;
+            break;
+          }
+        }
+
+        setStatus(
+          'Status: Unavailable',
+          'amber',
+          `<i class="fa-solid fa-clock mr-1"></i> I'm offline right now. ${nextText}`
+        );
+      } catch (err) {
+        setStatus(
+          'Check Availability',
+          'red',
+          '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Could not load availability. Run the site through a local server (not file://).'
+        );
+      }
+    });
+  }
+
+  // ==========================================
+  // 5. Submit Event
+  // ==========================================
   const loginForm = document.getElementById('loginForm');
   const loginMsg = document.querySelector('.loginMsg');
 
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent page reload
-    
-    const name = searchInput.value.trim();
-    const project = countrySelect.value;
-    const featuresCount = wishlist.children.length;
-    
-    if (!name || project === 'None') {
-      loginMsg.textContent = 'Please provide your name and project type.';
-      loginMsg.classList.replace('text-sky-400', 'text-red-400');
-      return;
-    }
+  if (loginForm && loginMsg) {
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
 
-    loginMsg.classList.replace('text-red-400', 'text-sky-400');
-    loginMsg.textContent = `Thanks ${name}! Your request for ${project} with ${featuresCount} features has been sent.`;
-    
-    // Optional: Reset form
-    // loginForm.reset();
-    // inputMsg.textContent = '...';
-    // changeMsg.textContent = 'your project';
-    // wishlist.innerHTML = '';
-  });
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = searchInput ? searchInput.value.trim() : '';
+      const emailInput = document.getElementById('emailInput');
+      const emailValue = emailInput ? emailInput.value.trim() : '';
+      let project = countrySelect ? countrySelect.value : '';
+      const features = wishlist ? Array.from(wishlist.children).map((li) => li.textContent) : [];
+
+      const isCustomVisible =
+        customRequestDiv &&
+        !customRequestDiv.classList.contains('hidden') &&
+        customRequestDiv.style.display !== 'none';
+      const customValue = customRequestInput ? customRequestInput.value.trim() : '';
+
+      if (isCustomVisible && customValue !== '') {
+        project = `Custom Request: "${customValue}"`;
+      }
+
+      if (!name || (project === 'None' && (!isCustomVisible || customValue === ''))) {
+        loginMsg.textContent = 'Please provide your name and select a project type or enter a custom request.';
+        loginMsg.className = 'loginMsg text-center mt-4 font-medium text-red-400 h-6';
+        return;
+      }
+
+      if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+        loginMsg.textContent = 'Form is not configured yet: set FORMSPREE_ENDPOINT in main.js.';
+        loginMsg.className = 'loginMsg text-center mt-4 font-medium text-red-400 h-6';
+        return;
+      }
+
+      loginMsg.textContent = 'Sending...';
+      loginMsg.className = 'loginMsg text-center mt-4 font-medium text-sky-400 h-6';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            _subject: `New project request from ${name}`,
+            name,
+            ...(emailValue && { email: emailValue }),
+            project,
+            features: features.length ? features.join(', ') : 'None',
+          }),
+        });
+
+        if (!response.ok) throw new Error('Request failed');
+
+        loginMsg.className = 'loginMsg text-center mt-4 font-medium text-emerald-400 h-6';
+        loginMsg.textContent = `Thanks ${name}! Your request was sent. I'll get back to you soon.`;
+
+        // Reset the form and all live-updated UI
+        loginForm.reset();
+        closeCustomRequest();
+        if (inputMsg) inputMsg.textContent = '...';
+        if (changeMsg) changeMsg.textContent = 'your project';
+        if (wishlist) wishlist.innerHTML = '';
+        if (keyMsg) keyMsg.textContent = '';
+      } catch (err) {
+        loginMsg.className = 'loginMsg text-center mt-4 font-medium text-red-400 h-6';
+        loginMsg.textContent = 'Something went wrong sending your request. Please try again.';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      }
+    });
+  }
+
+  // ==========================================
+  // 6. Cross-Platform Gmail Link Router
+  // ==========================================
+  const gmailLink = document.getElementById('gmailLink');
+
+  if (gmailLink) {
+    gmailLink.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const email = 'sraftori15@gmail.com';
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.location.href = `googlegmail:///co?to=${email}`;
+        setTimeout(() => {
+          window.location.href = `mailto:${email}`;
+        }, 500);
+      } else if (/android/i.test(userAgent)) {
+        window.location.href = `intent://compose?to=${email}#Intent;package=com.google.android.gm;scheme=mailto;end;`;
+      } else {
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`, '_blank');
+      }
+    });
+  }
 });

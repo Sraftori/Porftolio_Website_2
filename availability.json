@@ -1,0 +1,9 @@
+{
+  "timezone": "Africa/Cairo",
+  "schedule": {
+    "sunday": { "start": "12:00", "end": "20:00" },
+    "monday": { "start": "14:00", "end": "22:00" },
+    "tuesday": { "start": "12:00", "end": "18:00" }
+  }
+}
+
