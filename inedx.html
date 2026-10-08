@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sraf | Secure Web Developer</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-50 leading-relaxed selection:bg-sky-500 selection:text-white">
+
+  <!-- Navigation -->
+  <nav class="bg-slate-900/90 backdrop-blur border-b border-slate-800 py-4 sticky top-0 z-50">
+    <div class="max-w-[1100px] mx-auto px-6 flex justify-between items-center">
+      <a href="#" class="text-sky-400 text-2xl font-bold no-underline tracking-wide">Sraf<span class="text-slate-50">.dev</span></a>
+      <ul class="hidden md:flex gap-8 list-none m-0 p-0 text-sm font-semibold tracking-wide uppercase">
+        <li><a href="#about" class="text-slate-400 hover:text-sky-400 transition-colors">About</a></li>
+        <li><a href="#resume" class="text-slate-400 hover:text-sky-400 transition-colors">Resume</a></li>
+        <li><a href="#services" class="text-slate-400 hover:text-sky-400 transition-colors">Services</a></li>
+        <li><a href="#projects" class="text-slate-400 hover:text-sky-400 transition-colors">Portfolio</a></li>
+        <li><a href="#contact" class="text-slate-400 hover:text-sky-400 transition-colors">Contact</a></li>
+      </ul>
+      <a href="#contact" class="bg-sky-400 text-slate-900 px-5 py-2 rounded font-bold hover:bg-sky-300 transition-colors">Hire Me</a>
+    </div>
+  </nav>
+
+  <!-- 01 COVER / HERO -->
+  <header class="py-24 lg:py-32 overflow-hidden relative">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 py-1.5 px-4 border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 rounded-full text-sm font-bold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Available for Freelance
+        </div>
+        <h1 class="text-5xl lg:text-6xl leading-tight mb-6 font-bold">
+          Hi, I am <span class="text-sky-400">Sraf</span>.<br />
+          Creative Web Developer.
+        </h1>
+        <p class="text-slate-400 text-lg mb-8 leading-relaxed max-w-lg">
+          I help business owners achieve a fast, reliable, and hacker-proof online presence through a unique combination of custom React web building and proactive security testing.
+        </p>
+        <div class="flex gap-4">
+          <a href="#projects" class="bg-sky-400 text-slate-900 px-6 py-3 rounded font-bold hover:bg-sky-300 transition-colors">View Portfolio</a>
+          <a href="#resume" class="bg-transparent text-sky-400 border border-sky-400 px-6 py-3 rounded font-bold hover:bg-sky-400/10 transition-colors">Download CV <i class="fa-solid fa-download ml-2"></i></a>
+        </div>
+      </div>
+      <div class="relative hidden md:block">
+        <div class="absolute inset-0 bg-sky-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coding Workspace" class="rounded-2xl shadow-2xl relative z-10 border border-slate-700" />
+      </div>
+    </div>
+  </header>
+
+  <!-- 02 ABOUT ME -->
+  <section id="about" class="py-20 bg-slate-800/50 border-y border-slate-800">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-4">
+        <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">02. About</h2>
+        <h3 class="text-3xl font-bold mb-4">Bridging design and technical performance.</h3>
+      </div>
+      <div class="md:col-span-8 text-lg text-slate-400 leading-relaxed">
+        <p class="mb-4">
+          I build clean, accessible, and highly responsive websites. With a strong foundation in React front-end development and a deep background in hardware diagnostics and penetration testing, I approach web building with a unique focus on writing optimized, secure, and bug-free code.
+        </p>
+        <p>
+          Whether I am manipulating the DOM with pure JavaScript, developing automated Python scrapers, or structuring a complex layout with Tailwind CSS, my goal is to deliver a seamless, scalable, and safe user experience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 EDUCATION & 05 WORK EXPERIENCE -->
+  <section id="resume" class="py-24">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+      
+      <!-- Education Timeline -->
+      <div>
+        <h2 class="text-sky-400 mb-8 text-2xl font-bold uppercase tracking-wide">Education <i class="fa-solid fa-graduation-cap ml-2"></i></h2>
+        <div class="space-y-8 border-l-2 border-slate-800 pl-6 relative">
+          <div class="relative">
+            <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-sky-400 border-4 border-slate-900"></div>
+            <span class="text-sm font-bold text-slate-500 mb-1 block">Jun 2026 - Sep 2026</span>
+            <h3 class="text-xl font-bold text-slate-50">React Front-End Web Development</h3>
+            <p class="text-sky-400 font-medium mb-2">Digital Egypt Pioneers Initiative (DEPI)</p>
+            <p class="text-slate-400 text-sm">Intensive government-sponsored training track focusing on modern React frameworks, component lifecycle, and secure web practices.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-slate-700 border-4 border-slate-900"></div>
+            <span class="text-sm font-bold text-slate-500 mb-1 block">2024 - 2028 (Expected)</span>
+            <h3 class="text-xl font-bold text-slate-50">Bachelor of Accounting</h3>
+            <p class="text-sky-400 font-medium mb-2">Egyptian Chinese University</p>
+            <p class="text-slate-400 text-sm">Faculty of Commerce and Business. Integrating financial analysis principles with logic-based software solutions.</p>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-slate-700 border-4 border-slate-900"></div>
+            <span class="text-sm font-bold text-slate-500 mb-1 block">Self-Paced</span>
+            <h3 class="text-xl font-bold text-slate-50">Offensive & Defensive Security</h3>
+            <p class="text-sky-400 font-medium mb-2">TryHackMe & PortSwigger Academy</p>
+            <p class="text-slate-400 text-sm">Continuous learning in application security, CTF challenges, and DevSecOps workflows.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Timeline -->
+      <div>
+        <h2 class="text-sky-400 mb-8 text-2xl font-bold uppercase tracking-wide">Work History <i class="fa-solid fa-briefcase ml-2"></i></h2>
+        <div class="space-y-8 border-l-2 border-slate-800 pl-6 relative">
+          <div class="relative">
+            <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-sky-400 border-4 border-slate-900"></div>
+            <span class="text-sm font-bold text-slate-500 mb-1 block">Feb 2026 - Aug 2026</span>
+            <h3 class="text-xl font-bold text-slate-50">Computer Hardware Technician</h3>
+            <p class="text-sky-400 font-medium mb-2">Specialized Computer Hospital</p>
+            <p class="text-slate-400 text-sm">Conducted advanced desktop and laptop diagnostics, hardware assembly, thermal maintenance, and BIOS/UEFI tuning.</p>
+          </div>
+
+          <!-- 04 SKILLS -->
+          <div class="relative pt-6">
+            <h3 class="text-xl font-bold text-slate-50 mb-4 mt-6">Core Technical Skills</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">React.js</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">Vanilla JavaScript</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">Tailwind CSS</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">Python (CustomTkinter/Scraping)</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">C++</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">Linux Administration</span>
+              <span class="bg-slate-800 border border-slate-700 py-1.5 px-3 rounded text-sm font-medium text-slate-300">Penetration Testing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 06 OFFERED SERVICES -->
+  <section id="services" class="py-24 bg-slate-800/50 border-y border-slate-800">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">06. Services</h2>
+        <h3 class="text-3xl font-bold text-slate-50">What I Can Do For You</h3>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-brands fa-figma text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Figma to Code</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Converting your UI designs into pixel-perfect, fully responsive web layouts using React and Tailwind CSS.</p>
+        </div>
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-solid fa-code text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Automated Scripts</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Developing standalone Python GUI applications for web scraping and data automation to streamline your workflow.</p>
+        </div>
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-solid fa-shield-halved text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Secure Web Building</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Applying penetration testing principles to ensure your front-end code is resilient, reliable, and secure from exploitation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 PROJECTS (PREVIOUS WORK) -->
+  <section id="projects" class="py-24">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="mb-16 md:flex justify-between items-end">
+        <div>
+          <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">07. Portfolio</h2>
+          <h3 class="text-3xl font-bold text-slate-50">Featured Projects</h3>
+        </div>
+        <a href="https://github.com/" target="_blank" class="hidden md:inline-block text-slate-400 hover:text-sky-400 transition-colors font-medium">View GitHub <i class="fa-brands fa-github ml-1"></i></a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Project 1: Moonfall Weather App -->
+        <div class="group">
+          <!-- 5-Image CSS Grid Collage -->
+          <div class="grid grid-cols-4 grid-rows-2 gap-1 h-64 mb-6 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-lg">
+            <div class="col-span-2 row-span-2 overflow-hidden bg-slate-800">
+              <img src="./imgs/Day + Normal.jpg" alt="Day Normal Weather" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+            <div class="col-span-1 row-span-1 overflow-hidden bg-slate-800">
+              <img src="./imgs/Day + Hot.jpg" alt="Day Hot Weather" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+            <div class="col-span-1 row-span-1 overflow-hidden bg-slate-800">
+              <img src="./imgs/Night + Hot.jpg" alt="Night Hot Weather" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+            <div class="col-span-1 row-span-1 overflow-hidden bg-slate-800">
+              <img src="./imgs/Day + Rain.jpg" alt="Day Rain Weather" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+            <div class="col-span-1 row-span-1 overflow-hidden bg-slate-800">
+              <img src="./imgs/Night + Rain.jpg" alt="Night Rain Weather" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-50 mb-3">Moonfall Weather App</h3>
+          <p class="text-slate-400 mb-4">An interactive web application fetching live meteorological data via Open-Meteo APIs, featuring dynamic backgrounds that change based on current weather conditions.</p>
+          <div class="flex gap-2 mb-4">
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">HTML/CSS</span>
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">JavaScript</span>
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">REST APIs</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Python Web Scraper -->
+        <div class="group">
+          <!-- 2-Image CSS Grid Split -->
+          <div class="grid grid-cols-2 gap-1 h-64 mb-6 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-lg">
+            <div class="overflow-hidden bg-slate-800">
+              <img src="./imgs/Screenshot 2026-10-08 200142.png" alt="Desktop Scraper UI" class="w-full h-full object-cover object-left-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+            <div class="overflow-hidden bg-slate-800">
+              <img src="./imgs/Screenshot 2026-10-08 200205.png" alt="Web Scraper UI" class="w-full h-full object-cover object-left-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-50 mb-3">Automated Web Scraper</h3>
+          <p class="text-slate-400 mb-4">A powerful data extraction tool featuring both a standalone desktop application compiled via PyInstaller and a clean web-based interface for extracting JSON/CSV data.</p>
+          <div class="flex gap-2 mb-4">
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">Python</span>
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">CustomTkinter</span>
+            <span class="text-xs font-bold text-sky-400 bg-sky-400/10 py-1 px-2 rounded">BeautifulSoup</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 ACHIEVEMENTS & 09 TESTIMONIALS -->
+  <section class="py-24 bg-slate-800/50 border-y border-slate-800">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+      
+      <!-- Achievements -->
+      <div>
+        <h2 class="text-sky-400 mb-8 text-2xl font-bold uppercase tracking-wide">Achievements <i class="fa-solid fa-trophy ml-2"></i></h2>
+        
+        <div class="flex items-start gap-5 mb-8 bg-slate-900 p-6 rounded-lg border border-slate-700">
+          <i class="fa-brands fa-microsoft text-3xl text-sky-400 mt-1"></i>
+          <div>
+            <h4 class="text-lg font-bold text-slate-50">Microsoft AI Skills Fest</h4>
+            <p class="text-slate-400 text-sm mt-2">Completed specialized learning modules for the AI Skills Fest event, earning an official certification exam voucher (June 2026).</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-5 bg-slate-900 p-6 rounded-lg border border-slate-700">
+          <i class="fa-solid fa-bug text-3xl text-sky-400 mt-1"></i>
+          <div>
+            <h4 class="text-lg font-bold text-slate-50">Riot Games Security Report</h4>
+            <p class="text-slate-400 text-sm mt-2">Compiled evidence and submitted a detailed security report detailing automated phishing bot behaviors and API exploitation (August 2026).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div>
+        <h2 class="text-sky-400 mb-8 text-2xl font-bold uppercase tracking-wide">Client Feedback <i class="fa-solid fa-quote-left ml-2"></i></h2>
+        
+        <div class="bg-slate-900 p-8 rounded-lg border border-slate-700 relative">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-slate-700 rounded-full flex items-center justify-center text-xl font-bold text-slate-400">JD</div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 10 CALL TO ACTION & CONTACT -->
+  <section id="contact" class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-sky-400 rounded-full blur-[100px] opacity-5 -top-[50%] -right-[20%]"></div>
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 relative z-10">
+      
+      <!-- Contact Info -->
+      <div class="lg:col-span-5">
+        <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">10. Contact</h2>
+        <h3 class="text-4xl font-bold text-slate-50 mb-6">Let's build something secure together.</h3>
+        <p class="text-slate-400 mb-10 text-lg">Whether you need a new landing page from a Figma design or an automated script, I'm ready to help.</p>
+        
+        <div class="space-y-6">
+          <div class="flex items-center gap-4 text-slate-300">
+            <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-sky-400 border border-slate-700"><i class="fa-solid fa-envelope"></i></div>
+            <span class="font-medium">sraftori15@gmail.com</span>
+          </div>
+          <div class="flex items-center gap-4 text-slate-300">
+            <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-sky-400 border border-slate-700"><i class="fa-solid fa-location-dot"></i></div>
+            <span class="font-medium">Cairo, Egypt</span>
+          </div>
+          <div class="flex items-center gap-4 text-slate-300">
+            <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-sky-400 border border-slate-700"><i class="fa-brands fa-linkedin-in"></i></div>
+            <span class="font-medium">www.linkedin.com/in/omar-omar-8815b936a</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="lg:col-span-7">
+        <form id="loginForm" class="bg-slate-800/50 p-8 md:p-10 rounded-2xl border border-slate-700 backdrop-blur">
+          
+          <div class="mb-6">
+            <label class="block mb-2 font-semibold text-slate-50">1. What is your name?</label>
+            <input type="text" id="search" placeholder="Enter your full name..." class="w-full p-4 bg-slate-900 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-sky-400 transition-colors">
+            <p class="text-sm text-sky-400 mt-2 font-medium">Nice to meet you, <span class="inputMsg font-bold">...</span>!</p>
+          </div>
+
+          <div class="mb-6">
+            <label class="block mb-2 font-semibold text-slate-50">2. What type of project do you need?</label>
+            <select id="countrySelect" class="w-full p-4 bg-slate-900 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-sky-400 transition-colors appearance-none">
+              <option value="None">Select a project type...</option>
+              <option value="a New Landing Page">New Landing Page</option>
+              <option value="a Figma-to-Code Conversion">Figma to Code</option>
+              <option value="Website Bug Fixes">Website Bug Fixes</option>
+              <option value="a Custom Python Scraper">Python Web Scraper</option>
+            </select>
+            <p class="text-sm text-sky-400 mt-2 font-medium">Great! Let's talk about <span class="changeMsg font-bold">your project</span>.</p>
+          </div>
+
+          <div class="mb-8">
+            <label class="block mb-2 font-semibold text-slate-50">3. Feature Wishlist (Type a feature and press Enter)</label>
+            <input type="text" id="keyInput" placeholder="Type here and press Enter..." class="w-full p-4 bg-slate-900 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-sky-400 transition-colors">
+            <p class="text-sm text-slate-500 mt-2"><span class="keyMsg"></span></p>
+            <ul class="wishlist mt-4 text-slate-50 flex flex-wrap gap-2 empty:hidden"></ul>
+          </div>
+
+          <div class="flex items-center gap-4 mb-8">
+            <button type="button" id="clickEvent" class="bg-slate-900 text-sky-400 border border-sky-400 hover:bg-sky-400/10 py-2.5 px-5 rounded-lg font-bold transition-all duration-200 text-sm">Check Availability</button>
+            <p class="clickMsg text-sm text-emerald-400 font-medium"></p>
+          </div>
+
+          <button type="submit" class="bg-sky-400 text-slate-900 hover:bg-sky-300 w-full py-4 px-6 rounded-lg font-bold text-lg transition-colors">Send Project Details</button>
+          <p class="loginMsg text-center mt-4 font-medium text-sky-400 h-6"></p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 11 Footer -->
+  <footer class="bg-slate-900 py-8 border-t border-slate-800 text-center">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <h2 class="text-2xl font-bold text-slate-50 mb-2 tracking-widest">THANK YOU</h2>
+      <p class="text-slate-500 text-sm mb-6">Looking forward to bringing your ideas to the web securely.</p>
+      <p class="text-slate-600 text-xs">&copy; 2026 Sraf. Professional Web Development.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_website_1.js"></script>
+</body>
+</html>
