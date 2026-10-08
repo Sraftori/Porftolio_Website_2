@@ -70,41 +70,57 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 3. Feature Wishlist (Enter & Keyup)
+  // 3. Feature Wishlist (Enter, Click Add, & Keyup)
   // ==========================================
   const keyInput = document.getElementById('keyInput');
+  const addFeatureBtn = document.getElementById('addFeatureBtn');
   const keyMsg = document.querySelector('.keyMsg');
   const wishlist = document.querySelector('.wishlist');
 
-  if (keyInput && keyMsg && wishlist) {
+  function addFeatureFromInput() {
+    if (!keyInput || !wishlist) return;
+    const val = keyInput.value.trim();
+    if (!val) return;
+
+    const newItem = document.createElement('li');
+    newItem.textContent = val;
+    newItem.className =
+      'bg-slate-800 py-2 px-4 rounded border border-slate-700 text-sm cursor-pointer hover:bg-red-500/20 hover:border-red-500 hover:text-red-400 transition-colors shadow-sm';
+    newItem.title = 'Click to remove';
+
+    newItem.addEventListener('click', () => {
+      newItem.remove();
+    });
+
+    wishlist.appendChild(newItem);
+    keyInput.value = '';
+    if (keyMsg) {
+      keyMsg.textContent = 'Feature added! Click a tag to remove it.';
+      setTimeout(() => {
+        if (keyInput && keyInput.value === '') keyMsg.textContent = '';
+      }, 2500);
+    }
+  }
+
+  if (keyInput && wishlist) {
     keyInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
+        addFeatureFromInput();
       }
     });
 
-    keyInput.addEventListener('keyup', (e) => {
-      keyMsg.textContent = e.target.value !== '' ? `Typing: ${e.target.value}` : '';
-
-      if (e.key === 'Enter' && e.target.value.trim() !== '') {
-        const newItem = document.createElement('li');
-        newItem.textContent = e.target.value.trim();
-        newItem.className =
-          'bg-slate-800 py-2 px-4 rounded border border-slate-700 text-sm cursor-pointer hover:bg-red-500/20 hover:border-red-500 hover:text-red-400 transition-colors shadow-sm';
-        newItem.title = 'Click to remove';
-
-        newItem.addEventListener('click', () => {
-          newItem.remove();
-        });
-
-        wishlist.appendChild(newItem);
-        e.target.value = '';
-        keyMsg.textContent = 'Feature added! Click a tag to remove it.';
-
-        setTimeout(() => {
-          if (keyInput.value === '') keyMsg.textContent = '';
-        }, 2500);
+    keyInput.addEventListener('input', (e) => {
+      if (keyMsg) {
+        keyMsg.textContent = e.target.value !== '' ? `Typing: ${e.target.value}` : '';
       }
+    });
+  }
+
+  if (addFeatureBtn) {
+    addFeatureBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      addFeatureFromInput();
     });
   }
 
@@ -234,7 +250,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailInput = document.getElementById('emailInput');
       const emailValue = emailInput ? emailInput.value.trim() : '';
       let project = countrySelect ? countrySelect.value : '';
-      const features = wishlist ? Array.from(wishlist.children).map((li) => li.textContent) : [];
+
+      // If user typed in the wishlist input but forgot to hit Enter or click Add, capture it now
+      if (keyInput && keyInput.value.trim()) {
+        addFeatureFromInput();
+      }
+      const features = wishlist ? Array.from(wishlist.children).map((li) => li.textContent.trim()) : [];
 
       const isCustomVisible =
         customRequestDiv &&
@@ -265,20 +286,32 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
       }
 
+      const featuresText = features.length ? features.join(', ') : 'None specified';
+      const emailBodyMessage = `Project Type:\n${project}\n\nFeature Wishlist:\n${
+        features.length ? features.map((f, i) => `${i + 1}. ${f}`).join('\n') : 'No specific features requested.'
+      }`;
+
+      const formData = new FormData();
+      formData.append('_subject', `New project request from ${name}`);
+      formData.append('name', name);
+      if (emailValue) formData.append('email', emailValue);
+      formData.append('project', project);
+      formData.append('features', featuresText);
+      formData.append('message', emailBodyMessage);
+
       try {
         const response = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
-          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `New project request from ${name}`,
-            name,
-            ...(emailValue && { email: emailValue }),
-            project,
-            features: features.length ? features.join(', ') : 'None',
-          }),
+          headers: { Accept: 'application/json' },
+          body: formData,
         });
 
-        if (!response.ok) throw new Error('Request failed');
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          const errMsg = data.errors ? data.errors.map((e) => e.message).join(', ') : (data.error || 'Request failed');
+          throw new Error(errMsg);
+        }
 
         loginMsg.className = 'loginMsg text-center mt-4 font-medium text-emerald-400 h-6';
         loginMsg.textContent = `Thanks ${name}! Your request was sent. I'll get back to you soon.`;
@@ -291,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wishlist) wishlist.innerHTML = '';
         if (keyMsg) keyMsg.textContent = '';
       } catch (err) {
+        console.error('Form submission error:', err);
         loginMsg.className = 'loginMsg text-center mt-4 font-medium text-red-400 h-6';
-        loginMsg.textContent = 'Something went wrong sending your request. Please try again.';
+        loginMsg.textContent = err.message || 'Something went wrong sending your request. Please try again.';
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
