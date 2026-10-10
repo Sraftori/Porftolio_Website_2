@@ -1,5 +1,32 @@
 // Paste your Formspree endpoint here (looks like https://formspree.io/f/abcdwxyz)
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkjorvky';
+// Mobile Drawer Toggle
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const closeMenuBtn = document.getElementById('closeMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const mobileLinks = document.querySelectorAll('.mobile-link');
+
+function openDrawer() {
+  mobileMenu.classList.remove('translate-x-full'); // Slides it in
+  mobileOverlay.classList.remove('hidden');          // Shows dark backdrop
+  document.body.classList.add('overflow-hidden');   // Prevents background scrolling
+}
+
+function closeDrawer() {
+  mobileMenu.classList.add('translate-x-full');    // Slides it back out
+  mobileOverlay.classList.add('hidden');           // Hides dark backdrop
+  document.body.classList.remove('overflow-hidden');
+}
+
+if (mobileMenuBtn && closeMenuBtn && mobileMenu && mobileOverlay) {
+  mobileMenuBtn.addEventListener('click', openDrawer);
+  closeMenuBtn.addEventListener('click', closeDrawer);
+  mobileOverlay.addEventListener('click', closeDrawer);
+
+  // Automatically close the drawer when any nav link is tapped
+  mobileLinks.forEach((link) => link.addEventListener('click', closeDrawer));
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================

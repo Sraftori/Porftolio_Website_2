@@ -15,19 +15,47 @@
 <body class="bg-slate-900 text-slate-50 leading-relaxed selection:bg-sky-500 selection:text-white">
 
   <!-- Navigation -->
-  <nav class="bg-slate-900/90 backdrop-blur border-b border-slate-800 py-4 sticky top-0 z-50">
+  <nav class=" bg-slate-900/90 backdrop-blur border-b border-slate-800 py-4 sticky top-0 z-50">
     <div class="max-w-[1100px] mx-auto px-6 flex justify-between items-center">
       <a href="#" class="text-sky-400 text-2xl font-bold no-underline tracking-wide">Sraf<span class="text-slate-50">.dev</span></a>
       <ul class="hidden md:flex gap-8 list-none m-0 p-0 text-sm font-semibold tracking-wide uppercase">
         <li><a href="#about" class="text-slate-400 hover:text-sky-400 transition-colors">About</a></li>
         <li><a href="#resume" class="text-slate-400 hover:text-sky-400 transition-colors">Resume</a></li>
-        <li><a href="#services" class="text-slate-400 hover:text-sky-400 transition-colors">Services</a></li>
         <li><a href="#projects" class="text-slate-400 hover:text-sky-400 transition-colors">Portfolio</a></li>
+        <li><a href="#services" class="text-slate-400 hover:text-sky-400 transition-colors">Services</a></li>
         <li><a href="#contact" class="text-slate-400 hover:text-sky-400 transition-colors">Contact</a></li>
       </ul>
       <a href="#contact" class="bg-sky-400 text-slate-900 px-5 py-2 rounded font-bold hover:bg-sky-300 transition-colors">Hire Me</a>
+      <button id="mobileMenuBtn" type="button" class="md:hidden text-slate-300 hover:text-sky-400 text-2xl focus:outline-none ml-4">
+       <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </nav>
+<div id="mobileOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden"></div>
+
+<aside id="mobileMenu" class="fixed top-0 right-0 h-full w-64 bg-slate-900 border-l border-slate-800 p-6 z-50 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+  <div>
+    <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+      <span class="text-sky-400 font-bold text-lg">Menu</span>
+      <button id="closeMenuBtn" class="text-slate-400 hover:text-red-400 text-2xl focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="flex flex-col gap-6 text-sm font-semibold uppercase tracking-wider">
+      <li><a href="#about" class="mobile-link text-slate-300 hover:text-sky-400 transition-colors">About</a></li>
+      <li><a href="#resume" class="mobile-link text-slate-300 hover:text-sky-400 transition-colors">Resume</a></li>
+      <li><a href="#projects" class="mobile-link text-slate-300 hover:text-sky-400 transition-colors">Portfolio</a></li>
+      <li><a href="#services" class="mobile-link text-slate-300 hover:text-sky-400 transition-colors">Services</a></li>
+      <li><a href="#contact" class="mobile-link text-slate-300 hover:text-sky-400 transition-colors">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Bottom CTA -->
+  <a href="#contact" class="mobile-link bg-sky-400 text-slate-900 text-center py-3 rounded-lg font-bold hover:bg-sky-300 transition-colors">
+    Hire Me
+  </a>
+</aside>
 
   <!-- 01 COVER / HERO -->
   <header class="py-24 lg:py-32 overflow-hidden relative">
@@ -136,40 +164,12 @@
     </div>
   </section>
 
-  <!-- 06 OFFERED SERVICES -->
-  <section id="services" class="py-24 bg-slate-800/50 border-y border-slate-800">
-    <div class="max-w-[1100px] mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">06. Services</h2>
-        <h3 class="text-3xl font-bold text-slate-50">What I Can Do For You</h3>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
-          <i class="fa-brands fa-figma text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
-          <h3 class="mb-3 text-xl font-bold text-slate-50">Figma to Code</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Converting your UI designs into pixel-perfect, fully responsive web layouts using React and Tailwind CSS.</p>
-        </div>
-        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
-          <i class="fa-solid fa-code text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
-          <h3 class="mb-3 text-xl font-bold text-slate-50">Automated Scripts</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Developing standalone Python GUI applications for web scraping and data automation to streamline your workflow.</p>
-        </div>
-        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
-          <i class="fa-brands fa-node-js text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
-          <h3 class="mb-3 text-xl font-bold text-slate-50">Modern Web Applications</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Building scalable, dynamic user interfaces using modern ES6 practices, preparing for full-stack integration with Node.js.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 PROJECTS (PREVIOUS WORK) -->
-  <section id="projects" class="py-24">
+  <!-- 06 PROJECTS (PREVIOUS WORK) -->
+  <section id="projects" class="py-24 bg-slate-800/50 border-y border-slate-800">
     <div class="max-w-[1100px] mx-auto px-6">
       <div class="mb-16 md:flex justify-between items-end">
         <div>
-          <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">07. Portfolio</h2>
+          <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">06. Portfolio</h2>
           <h3 class="text-3xl font-bold text-slate-50">Featured Projects</h3>
         </div>
         <a href="https://github.com/Sraftori?tab=repositories" target="_blank" class="hidden md:inline-block text-slate-400 hover:text-sky-400 transition-colors font-medium">View GitHub <i class="fa-brands fa-github ml-1"></i></a>
@@ -240,6 +240,34 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 OFFERED SERVICES -->
+  <section id="services" class="py-24">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-sky-400 mb-2 text-sm font-bold tracking-widest uppercase">07. Services</h2>
+        <h3 class="text-3xl font-bold text-slate-50">What I Can Do For You</h3>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-brands fa-figma text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Figma to Code</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Converting your UI designs into pixel-perfect, fully responsive web layouts using React and Tailwind CSS.</p>
+        </div>
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-solid fa-code text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Automated Scripts</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Developing standalone Python GUI applications for web scraping and data automation to streamline your workflow.</p>
+        </div>
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 hover:border-sky-400/50 transition-colors group">
+          <i class="fa-brands fa-node-js text-4xl text-sky-400 mb-6 group-hover:scale-110 transition-transform"></i>
+          <h3 class="mb-3 text-xl font-bold text-slate-50">Modern Web Applications</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Building scalable, dynamic user interfaces using modern ES6 practices, preparing for full-stack integration with Node.js.</p>
+        </div>
       </div>
     </div>
   </section>
